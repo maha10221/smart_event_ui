@@ -1,38 +1,342 @@
-.App {
-  text-align: center;
+/* =========================
+   GLOBAL
+========================= */
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  background: linear-gradient(120deg, #eef2ff, #fdf2f8);
+  color: #1f2937;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* =========================
+   LOGIN
+========================= */
+.login-container {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+}
+
+.login-card {
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  padding: 30px;
+  width: 350px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.25);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 22px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #4f46e5, #ec4899);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #c7d2fe;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.login-card button {
+  width: 100%;
+  padding: 11px;
+  background: linear-gradient(90deg, #4f46e5, #6366f1);
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.login-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+.dashboard-title {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.dashboard-title:hover {
+  transform: translateY(-1px);
+  opacity: 0.85;
+}
+
+.dashboard {
+  padding: 26px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.logout-btn {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   EMPLOYEE FORM
+========================= */
+.employee-form {
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(99, 102, 241, 0.15);
+  margin-bottom: 26px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.employee-form input,
+.employee-form select {
+  height: 42px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #c7d2fe;
+  font-size: 14px;
+  background: white;
+}
+
+.employee-form input:focus,
+.employee-form select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* SELECT ARROW */
+.employee-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M2 4l4 4 4-4' fill='%234f46e5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 34px;
+}
+
+/* FORM BUTTON */
+.employee-form button {
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  color: white;
+  border: none;
+}
+
+.employee-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+}
+
+/* =========================
+   EMPLOYEE TABLE
+========================= */
+.employee-table {
+  width: 100%;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(99, 102, 241, 0.15);
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 13px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.employee-table th {
+  background: linear-gradient(90deg, #4f46e5, #6366f1);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.employee-table tr:nth-child(even) {
+  background-color: #f8fafc;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.employee-table tr:hover {
+  background-color: #eef2ff;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+.action-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  font-size: 13px;
+}
+
+.edit-btn {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  color: #1f2937;
+}
+
+.delete-btn {
+  margin-left: 10px;
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  color: white;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  transform: scale(1.05);
+}
+/* =========================
+   SORT BAR (SAME AS FORM)
+========================= */
+.sort-bar {
+  margin-bottom: 22px;
+}
+
+/* Label-like placeholder feel */
+.sort-bar select {
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Hover effect */
+.sort-bar select:hover {
+  border-color: #6366f1;
+}
+
+/* Mobile friendly */
+@media (max-width: 768px) {
+  .sort-bar {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+.toast {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 260px;
+  max-width: 340px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  z-index: 9999;
+  animation: slideDown 0.4s ease, fadeOut 0.4s ease 4.6s;
+}
+
+.toast-success {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.toast-error {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+}
+
+/* Slide from top */
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* .toast {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  min-width: 260px;
+  max-width: 340px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  z-index: 9999;
+  animation: slideIn 0.4s ease, fadeOut 0.4s ease 4.6s;
+}
+
+.toast-success {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.toast-error {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+} */
