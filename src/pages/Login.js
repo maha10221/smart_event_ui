@@ -2,21 +2,49 @@ import { useState, useContext } from "react";
 import api from "../api/api";
 import { AuthContext } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../App.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  /* =========================
+     HANDLE LOGIN
+  ========================== */
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
+
     try {
-      const res = await api.post("/admin/login", { email, password });
-      login(res.data.token);
-      navigate("/dashboard");
-    } catch {
-      alert("Invalid credentials");
+      const res = await api.post("/admin/login", {
+        email,
+        password,
+      });
+
+      const token = res.data.token || res.data.jwt;
+
+      if (!token) {
+        throw new Error("Token not received from backend");
+      }
+
+      // Save token
+      login(token);
+
+      // Redirect
+      navigate("/dashboard", { replace: true });
+
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Invalid email or password");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,13 +52,18 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <h2>Admin Login</h2>
+        <p className="login-sub">
+          Sign in to access the admin dashboard
+        </p>
+
+        {error && <div className="login-error">{error}</div>}
 
         <form onSubmit={handleLogin}>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Admin Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
 
@@ -38,11 +71,29 @@ const Login = () => {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
 
-          <button type="submit">Login</button>
+          {/* ✅ BOOTSTRAP SPINNER BUTTON */}
+          <button
+            type="submit"
+            className="btn btn-primary w-100 mt-3"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Logging in...
+              </>
+            ) : (
+              "Login"
+            )}
+          </button>
         </form>
       </div>
     </div>
@@ -50,69 +101,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// import { useState, useContext } from "react";
-// import api from "../api/api";
-// import { AuthContext } from "../auth/AuthContext";
-// import { useNavigate } from "react-router-dom";
-
-// const Login = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [error, setError] = useState("");
-
-//   const { login } = useContext(AuthContext);
-//   const navigate = useNavigate();
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     setError("");
-//     localStorage.removeItem("token"); // 🧹 clear stale token
-
-//     try {
-//       const res = await api.post("/admin/login", {
-//         email: email.trim(),
-//         password: password.trim(),
-//       });
-
-//       login(res.data.token);
-//       navigate("/dashboard");
-
-//     } catch (err) {
-//       console.error(err);
-//       setError("Invalid email or password");
-//     }
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <div className="login-card">
-//         <h2>Admin Login</h2>
-
-//         {error && <p style={{ color: "red" }}>{error}</p>}
-
-//         <form onSubmit={handleLogin}>
-//           <input
-//             type="email"
-//             placeholder="Email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-
-//           <button type="submit">Login</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;

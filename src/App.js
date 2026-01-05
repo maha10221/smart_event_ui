@@ -1,45 +1,30 @@
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Login from "./pages/Login";
-// import Dashboard from "./pages/Dashboard";
-// import PrivateRoute from "./auth/PrivateRoute";
-// import { AuthProvider } from "./auth/AuthContext";
-// import "./App.css";
-
-
-// function App() {
-//   return (
-//     <AuthProvider>
-//       <BrowserRouter>
-//         <Routes>
-//           <Route path="/" element={<Login />} />
-//           <Route
-//             path="/dashboard"
-//             element={
-//               <PrivateRoute>
-//                 <Dashboard />
-//               </PrivateRoute>
-//             }
-//           />
-//         </Routes>
-//       </BrowserRouter>
-//     </AuthProvider>
-//   );
-// }
-
-// export default App;
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
+import PrivateRoute from "./auth/PrivateRoute";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import "./App.css";
+import ComingSoon from "./pages/ComingSoon";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* Login Page */}
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          
+
+          {/* Protected Dashboard */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
