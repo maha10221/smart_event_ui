@@ -1,11 +1,17 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../auth/AuthContext";
+import "./Header.css";
 
-const Header = ({ onLogout }) => {
+const Header = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   /* =========================
-     CLOSE ON OUTSIDE CLICK
+     CLOSE DROPDOWN ON OUTSIDE CLICK
   ========================== */
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -18,9 +24,18 @@ const Header = ({ onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  /* =========================
+     LOGOUT
+  ========================== */
+  const handleLogout = () => {
+    setOpen(false);
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <header className="app-header">
-      <div className="header-title"> </div>
+      <div className="header-title">Admin Panel</div>
 
       <div className="profile-wrapper" ref={dropdownRef}>
         <img
@@ -33,15 +48,7 @@ const Header = ({ onLogout }) => {
         {open && (
           <div className="profile-dropdown">
             <p className="profile-name">Admin</p>
-
-            <button
-              onClick={() => {
-                setOpen(false);
-                onLogout && onLogout();
-              }}
-            >
-              Logout
-            </button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
         )}
       </div>

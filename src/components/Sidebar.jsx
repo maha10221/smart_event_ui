@@ -1,70 +1,70 @@
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
-  const [message, setMessage] = useState("");
-
-  const comingSoon = () => {
-    setMessage("🚧 Coming Soon...");
-    setTimeout(() => setMessage(""), 2000);
-  };
-
   return (
     <aside className="sidebar">
-      {/* TOP SECTION */}
-      <div>
+      {/* TOP */}
+      <div className="sidebar-top">
         <div className="sidebar-title">Admin Panel</div>
 
-        {/* COMING SOON MESSAGE */}
-        {message && (
-          <div className="coming-soon-msg">
-            {message}
-          </div>
-        )}
-
         <ul className="sidebar-menu">
-          <li className="active">
-            <i className="bi bi-speedometer2 menu-icon"></i>
-            <span>Dashboard</span>
+          <li>
+            <NavLink to="/home" end className="menu-link">
+              <i className="bi bi-speedometer2 menu-icon"></i>
+              Dashboard
+            </NavLink>
           </li>
 
-          <li onClick={comingSoon}>
-            <i className="bi bi-people menu-icon"></i>
-            <span>Employees</span>
+          <li>
+            <NavLink to="/home/employees" className="menu-link">
+              <i className="bi bi-people menu-icon"></i>
+              Employees
+            </NavLink>
           </li>
 
-          <li onClick={comingSoon}>
-            <i className="bi bi-clock-history menu-icon"></i>
-            <span>Attendance</span>
+          <li>
+            <NavLink to="/home/attendance" className="menu-link">
+              <i className="bi bi-clock-history menu-icon"></i>
+              Attendance
+            </NavLink>
           </li>
 
-          <li onClick={comingSoon}>
-            <i className="bi bi-cash-stack menu-icon"></i>
-            <span>Payroll</span>
+          <li>
+            <NavLink to="/home/payroll" className="menu-link">
+              <i className="bi bi-cash-stack menu-icon"></i>
+              Payroll
+            </NavLink>
           </li>
 
-          <li onClick={comingSoon}>
-            <i className="bi bi-building menu-icon"></i>
-            <span>Departments</span>
+          <li>
+            <NavLink to="/home/departments" className="menu-link">
+              <i className="bi bi-building menu-icon"></i>
+              Departments
+            </NavLink>
           </li>
 
-          <li onClick={comingSoon}>
-            <i className="bi bi-kanban menu-icon"></i>
-            <span>Projects</span>
+          <li>
+            <NavLink to="/home/projects" className="menu-link">
+              <i className="bi bi-kanban menu-icon"></i>
+              Projects
+            </NavLink>
           </li>
 
-          <li onClick={comingSoon}>
-            <i className="bi bi-bar-chart-line menu-icon"></i>
-            <span>Reports</span>
+          <li>
+            <NavLink to="/home/reports" className="menu-link">
+              <i className="bi bi-bar-chart-line menu-icon"></i>
+              Reports
+            </NavLink>
           </li>
         </ul>
       </div>
 
-      {/* BOTTOM SETTINGS */}
+      {/* BOTTOM – SETTINGS */}
       <div className="sidebar-bottom">
-        <div className="settings-item" onClick={comingSoon}>
+        <NavLink to="/home/settings" className="menu-link">
           <i className="bi bi-gear menu-icon"></i>
-          <span>Settings</span>
-        </div>
+          Settings
+        </NavLink>
       </div>
     </aside>
   );

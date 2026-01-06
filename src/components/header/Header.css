@@ -1,0 +1,84 @@
+/* =========================
+   HEADER
+========================= */
+
+.app-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 24px;
+}
+
+/* TITLE */
+.header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* PROFILE */
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #e5e7eb;
+  object-fit: cover;
+}
+
+/* DROPDOWN */
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 48px;
+
+  background: #ffffff;
+  width: 160px;
+  border-radius: 10px;
+  padding: 10px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease;
+}
+
+.profile-dropdown p {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* LOGOUT BUTTON */
+.profile-dropdown button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  cursor: pointer;
+}
+
+.profile-dropdown button:hover {
+  background: #dc2626;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

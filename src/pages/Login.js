@@ -38,7 +38,7 @@ const Login = () => {
       login(token);
 
       // Redirect
-      navigate("/dashboard", { replace: true });
+      navigate("/home", { replace: true });
 
     } catch (err) {
       console.error("Login error:", err);
