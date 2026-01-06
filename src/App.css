@@ -74,68 +74,6 @@ button {
 }
 
 /* =========================
-   SIDEBAR
-========================= */
-.sidebar {
-  width: 240px;
-  height: 100vh;
-  background: #ffffff;
-  border-right: 1px solid #e5e7eb;
-  padding: 18px 14px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidebar-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 18px;
-  padding-left: 8px;
-}
-
-.sidebar-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar-menu li {
-  padding: 10px 12px;
-  margin-bottom: 6px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #374151;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.sidebar-menu li:hover {
-  background: #eef2ff;
-}
-
-.sidebar-bottom {
-  padding-top: 10px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.settings-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.settings-item:hover {
-  background: #eef2ff;
-}
-
-/* =========================
    MAIN CONTENT HELPERS
 ========================= */
 .stats {
@@ -252,31 +190,12 @@ button {
    FOOTER
 ========================= */
 .app-footer {
-  padding: 12px;
-  text-align: center;
-  font-size: 13px;
-  color: #6b7280;
-  border-top: 1px solid #e5e7eb;
-}
-
-/* =========================
-   MENU LINK (SIDEBAR)
-========================= */
-.menu-link {
+  height: 40px;               /* ⬅ smaller */
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px;
-  color: #cbd5f5;
-  text-decoration: none;
-  border-radius: 8px;
-}
-
-.menu-link:hover {
-  background: #334155;
-}
-
-.menu-link.active {
-  background: #2563eb;
-  color: white;
+  justify-content: center;
+  font-size: 12px;            /* ⬅ smaller text */
+  color: #64748b;             /* softer gray */
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
 }

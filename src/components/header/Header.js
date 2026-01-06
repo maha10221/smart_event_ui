@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <header className="app-header">
-      <div className="header-title">Admin Panel</div>
+      <div className="header-title"></div>
 
       <div className="profile-wrapper" ref={dropdownRef}>
         <img

@@ -1,0 +1,266 @@
+/* =========================
+   DASHBOARD
+========================= */
+
+/* REMOVE DASHBOARD SCROLL */
+.dashboard,
+.page-content {
+  overflow: hidden;
+}
+
+/* =========================
+   STATS
+========================= */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;              /* slightly more space */
+  margin: 24px 0;
+}
+
+/* =========================
+   STAT CARD (BIGGER)
+========================= */
+.stat-card {
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  padding: 22px 22px;     /* 👈 increased padding */
+  min-height: 110px;     /* 👈 increases card height */
+
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(26, 40, 70, 0.12);
+}
+
+/* =========================
+   STAT TEXT (BIGGER)
+========================= */
+.stat-card h4 {
+  font-size: 16px;       /* was ~14–15 */
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.stat-card p {
+  font-size: 28px;       /* 👈 bigger value */
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.2;
+}
+
+/* =========================
+   STAT ICON (BIGGER)
+========================= */
+.stat-icon {
+  font-size: 36px;       /* 👈 bigger icon */
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #eef2ff;
+}
+
+
+/* =========================
+   SORT BAR
+========================= */
+.sort-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Select dropdown */
+.sort-bar select {
+  height: 38px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Focus state */
+
+
+/* SORT BAR */
+.sort-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+
+}
+
+.sort-bar select {
+  height: 38px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+/* TABLE SCROLL AREA */
+.employee-table-wrapper {
+  max-height: 300px; /* 👈 shows ~5 rows */
+  overflow-y: auto;
+  border-radius: 12px;
+  background: rgb(86, 89, 94);
+}
+
+/* TABLE */
+.employee-table {
+  margin-bottom: 0;
+}
+
+.employee-table th {
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+  z-index: 2;
+}
+
+/* =========================
+   PAGINATION (FIXED & COMPACT)
+========================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 16px;
+  margin-bottom: 12px;   /* 👈 space before footer */
+
+  font-size: 13px;
+}
+
+.pagination span {
+  color: #475569;
+  font-size: 13px;
+}
+
+/* BUTTONS — SMALL & LIGHT */
+.pagination button {
+  padding: 4px 12px;           /* 👈 smaller */
+  border-radius: 999px;
+  border: 1px solid #c7d2fe;
+
+  background: #eef2ff;         /* 👈 light color */
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 1.2;
+}
+
+/* HOVER */
+.pagination button:hover:not(:disabled) {
+  background: #e0e7ff;
+}
+
+/* DISABLED */
+.pagination button:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+}
+/* =========================
+   SORTABLE TABLE HEADERS
+========================= */
+.employee-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.employee-table th.sortable:hover {
+  text-decoration: underline;
+}
+/* =========================
+   EMPLOYEE TABLE (IMPROVED)
+========================= */
+/* Wrapper */
+.employee-table-wrapper {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* Table */
+.employee-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* FIX HEADER */
+.employee-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* SCROLL ONLY BODY */
+.employee-table tbody {
+  display: block;
+  max-height: 320px;       /* 👈 controls visible rows */
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* BODY ROWS */
+.employee-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* HEADER CELLS */
+.employee-table thead th {
+  background: #4b5661;
+    color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+  border-bottom: 1px solid #d5dded;
+  cursor: pointer;
+}
+
+/* BODY CELLS */
+.employee-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+/* Row hover */
+.employee-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Scrollbar styling */
+.employee-table tbody::-webkit-scrollbar {
+  width: 6px;
+}
+
+.employee-table tbody::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 10px;
+}
+
+.employee-table tbody::-webkit-scrollbar-thumb:hover {
+  background: #a5b4fc;
+}

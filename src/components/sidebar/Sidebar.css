@@ -1,0 +1,87 @@
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #f9fafb;
+  border-right: 1px solid #e5e7eb;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   SIDEBAR TOP (BELOW HEADER)
+========================= */
+.sidebar-top {
+  flex: 1;
+  padding: 18px 14px;
+  margin-top: 64px; /* header height */
+  overflow-y: auto;
+}
+
+/* TITLE */
+.sidebar-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  padding-left: 8px;
+  color: #111827;
+}
+
+/* MENU */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 6px;
+}
+
+/* MENU LINK */
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #374151;
+}
+
+.menu-link:hover {
+  background: #e0e7ff;
+  color: #1e40af;
+}
+
+/* ACTIVE */
+.menu-link.active {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* ICON */
+.menu-icon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
+
+/* =========================
+   SIDEBAR BOTTOM (MATCH FOOTER)
+========================= */
+.sidebar-bottom {
+  height: 48px;                 /* 🔥 SAME AS FOOTER */
+  display: flex;
+  align-items: center;          /* vertical center */
+  padding: 0 14px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}

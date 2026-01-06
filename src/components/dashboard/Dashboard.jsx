@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import api from "../api/api";
-import "../App.css";
+import api from "../../api/api";
+import "./Dashboard.css";
 
 /* UI Components */
-import StatCard from "../components/StatCard";
-import EmployeeForm from "../components/EmployeeForm";
+import StatCard from "../statcard/StatCard";
+import EmployeeForm from "../EmployeeForm";
 
 const Dashboard = () => {
   /* =========================
@@ -18,13 +18,12 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
 
   /* =========================
      PAGINATION + SORTING
   ========================== */
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
+  const [size] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
   const [sortBy, setSortBy] = useState("name");
   const [direction, setDirection] = useState("ASC");
@@ -48,29 +47,42 @@ const Dashboard = () => {
   const loadEmployees = async () => {
     try {
       const res = await api.get(
-        `/emp/page?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}&search=${search}`
+        `/emp/page?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`
       );
-
       setEmployees(res.data.data || []);
       setTotalPages(res.data.totalPages || 0);
       setTotalEmployees(res.data.totalItems || 0);
-    } catch (err) {
+    } catch {
       setError("Failed to load employees");
     }
   };
 
   useEffect(() => {
     loadEmployees();
-  }, [page, size, sortBy, direction, search]);
+  }, [page, sortBy, direction]);
 
   /* =========================
-     ADD / UPDATE EMPLOYEE
+     SORT HANDLER
+  ========================== */
+  const handleSort = (column) => {
+    if (sortBy === column) {
+      setDirection((prev) => (prev === "ASC" ? "DESC" : "ASC"));
+    } else {
+      setSortBy(column);
+      setDirection("ASC");
+    }
+  };
+
+  const renderSortIcon = (column) => {
+    if (sortBy !== column) return null;
+    return direction === "ASC" ? " ▲" : " ▼";
+  };
+
+  /* =========================
+     ADD / UPDATE
   ========================== */
   const addOrUpdate = async (emp) => {
     setLoading(true);
-    setError("");
-    setSuccess("");
-
     try {
       if (editEmp) {
         await api.put(`/emp/updateEmp/${editEmp.id}`, emp);
@@ -83,18 +95,18 @@ const Dashboard = () => {
       setDrawerOpen(false);
       setEditEmp(null);
       loadEmployees();
-    } catch (err) {
-      setError("Something went wrong");
+    } catch {
+      setError("Operation failed");
     } finally {
       setLoading(false);
     }
   };
 
   /* =========================
-     DELETE EMPLOYEE
+     DELETE
   ========================== */
   const deleteEmp = async (id) => {
-    if (!window.confirm("Are you sure?")) return;
+    if (!window.confirm("Are you sure you want to delete this employee?")) return;
 
     try {
       await api.delete(`/emp/deleteById/${id}`);
@@ -109,23 +121,22 @@ const Dashboard = () => {
     <>
       {/* TOAST */}
       {(error || success) && (
-        <div className={`toast ${error ? "toast-error" : "toast-success"}`}>
+        <div className={`app-toast ${error ? "toast-error" : "toast-success"}`}>
           {error || success}
         </div>
       )}
 
-      {/* PAGE HEADER */}
+      {/* HEADER */}
       <div className="d-flex justify-content-between align-items-start mb-3">
-        <div>
-          <h2 className="mb-1">Admin Dashboard</h2>
-          <p className="text-muted mb-0">
-            Employee Management Overview
-          </p>
-        </div>
+        <h2>Admin Dashboard</h2>
+        
 
         <button
-          className="btn btn-primary px-4 py-2"
-          onClick={() => setDrawerOpen(true)}
+          className="btn btn-primary px-4"
+          onClick={() => {
+            setEditEmp(null);
+            setDrawerOpen(true);
+          }}
         >
           + Add Employee
         </button>
@@ -133,23 +144,32 @@ const Dashboard = () => {
 
       {/* STATS */}
       <div className="stats">
-        <StatCard title="Total Employees" value={totalEmployees} />
-        <StatCard title="Departments" value="5" />
-        <StatCard title="Page Size" value={size} />
-        <StatCard title="Current Page" value={page + 1} />
+        <StatCard title="Total Employees" value={totalEmployees} icon="bi-people" />
+        <StatCard title="Departments" value="5" icon="bi-building" />
+        <StatCard title="Page Size" value={size} icon="bi-list-ol" />
+        <StatCard title="Current Page" value={page + 1} icon="bi-bookmark" />
       </div>
 
       {/* TABLE */}
-      <div className="table-responsive">
-        <table className="table table-hover align-middle">
+      <div className="employee-table-wrapper">
+        <table className="table table-hover align-middle employee-table">
           <thead className="table-light">
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Department</th>
-              <th>Salary</th>
-              <th>Joining Date</th>
-              <th>Gender</th>
+              <th className="sortable text-start" onClick={() => handleSort("name")}>
+                Name {renderSortIcon("name")}
+              </th>
+              <th className="text-start">Email</th>
+              <th className="text-start">Department</th>
+              <th className="sortable text-center" onClick={() => handleSort("salary")}>
+                Salary {renderSortIcon("salary")}
+              </th>
+              <th
+                className="sortable text-center"
+                onClick={() => handleSort("joiningDate")}
+              >
+                Joining Date {renderSortIcon("joiningDate")}
+              </th>
+              <th className="text-center">Gender</th>
               <th className="text-center">Actions</th>
             </tr>
           </thead>
@@ -164,13 +184,14 @@ const Dashboard = () => {
             ) : (
               employees.map((e) => (
                 <tr key={e.id}>
-                  <td>{e.name}</td>
-                  <td>{e.email}</td>
-                  <td>{e.department}</td>
-                  <td>{e.salary}</td>
-                  <td>{e.joiningDate}</td>
-                  <td>{e.gender}</td>
+                  <td className="text-start">{e.name}</td>
+                  <td className="text-start">{e.email}</td>
+                  <td className="text-start">{e.department}</td>
+                  <td className="text-center">{e.salary}</td>
+                  <td className="text-center">{e.joiningDate}</td>
+                  <td className="text-center">{e.gender}</td>
 
+                  {/* ✅ FIXED ACTION BUTTONS */}
                   <td className="text-center">
                     <button
                       className="btn btn-sm btn-outline-warning me-2"
@@ -196,11 +217,31 @@ const Dashboard = () => {
         </table>
       </div>
 
+      {/* PAGINATION */}
+      <div className="pagination">
+        <button disabled={page === 0} onClick={() => setPage(page - 1)}>
+          Prev
+        </button>
+
+        <span>
+          Page <b>{page + 1}</b> of <b>{totalPages}</b>
+        </span>
+
+        <button
+          disabled={page === totalPages - 1}
+          onClick={() => setPage(page + 1)}
+        >
+          Next
+        </button>
+      </div>
+
       {/* DRAWER */}
       {drawerOpen && (
         <div className="drawer-overlay">
           <div className="drawer">
-            <h3>{editEmp ? "Update Employee" : "Add Employee"}</h3>
+            <h3 className="text-center mb-3">
+              {editEmp ? "Update Employee" : "Add Employee"}
+            </h3>
 
             <EmployeeForm
               onSubmit={addOrUpdate}
@@ -208,15 +249,17 @@ const Dashboard = () => {
               loading={loading}
             />
 
-            <button
-              className="cancel-btn"
-              onClick={() => {
-                setDrawerOpen(false);
-                setEditEmp(null);
-              }}
-            >
-              Cancel
-            </button>
+            <div className="text-end mt-3">
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  setDrawerOpen(false);
+                  setEditEmp(null);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import "./Sidebar.css";
 
 const Sidebar = () => {
   return (
@@ -59,7 +60,7 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      {/* BOTTOM – SETTINGS */}
+      {/* BOTTOM */}
       <div className="sidebar-bottom">
         <NavLink to="/home/settings" className="menu-link">
           <i className="bi bi-gear menu-icon"></i>

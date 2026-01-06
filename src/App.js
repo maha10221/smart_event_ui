@@ -3,7 +3,7 @@ import { AuthProvider } from "./auth/AuthContext";
 import PrivateRoute from "./auth/PrivateRoute";
 import ComingSoon from "./pages/ComingSoon";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import MainLayout from "./layout/MainLayout";
 
 function App() {

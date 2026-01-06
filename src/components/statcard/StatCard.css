@@ -1,0 +1,41 @@
+/* =========================
+   STAT ICON – IMPROVED
+========================= */
+.stat-icon {
+  font-size: 34px;              /* bigger icon */
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;           /* circle background */
+  background: #eef2ff;          /* default soft bg */
+  color: #2563eb;               /* default blue */
+
+  opacity: 1;
+}
+
+/* =========================
+   ICON COLOR PER CARD
+========================= */
+.stat-card:nth-child(1) .stat-icon {
+  background: #eef2ff;
+  color: #2563eb; /* Blue */
+}
+
+.stat-card:nth-child(2) .stat-icon {
+  background: #ecfdf5;
+  color: #16a34a; /* Green */
+}
+
+.stat-card:nth-child(3) .stat-icon {
+  background: #fffbeb;
+  color: #f59e0b; /* Amber */
+}
+
+.stat-card:nth-child(4) .stat-icon {
+  background: #f5f3ff;
+  color: #7c3aed; /* Purple */
+}
