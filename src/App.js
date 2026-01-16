@@ -5,6 +5,9 @@ import ComingSoon from "./pages/ComingSoon";
 import Login from "./pages/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import MainLayout from "./layout/MainLayout";
+import Attendance from "./components/attendance/Attendance";
+import Documents from "./components/documents/Documents";
+import Payroll from "./components/payroll/Payroll";
 
 function App() {
   return (
@@ -22,9 +25,9 @@ function App() {
               {/* ✅ DASHBOARD INSIDE LAYOUT */}
               <Route index element={<Dashboard />} />
                {/* SIDEBAR PAGES */}
-              <Route path="employees" element={<ComingSoon />} />
-              <Route path="attendance" element={<ComingSoon />} />
-              <Route path="payroll" element={<ComingSoon />} />
+              <Route path="documents" element={<Documents />} />
+              <Route path="attendance" element={<Attendance />} />
+              <Route path="payroll" element={<Payroll />} />
               <Route path="departments" element={<ComingSoon />} />
               <Route path="projects" element={<ComingSoon />} />
               <Route path="reports" element={<ComingSoon />} />

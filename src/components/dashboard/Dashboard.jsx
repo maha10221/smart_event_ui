@@ -4,7 +4,7 @@ import "./Dashboard.css";
 
 /* UI Components */
 import StatCard from "../statcard/StatCard";
-import EmployeeForm from "../EmployeeForm";
+import EmployeeForm from "../employeeForm/EmployeeForm";
 
 const Dashboard = () => {
   /* =========================

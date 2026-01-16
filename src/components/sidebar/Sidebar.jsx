@@ -17,9 +17,9 @@ const Sidebar = () => {
           </li>
 
           <li>
-            <NavLink to="/home/employees" className="menu-link">
-              <i className="bi bi-people menu-icon"></i>
-              Employees
+            <NavLink to="/home/documents" className="menu-link">
+              <i className="bi bi-file-earmark-text menu-icon"></i>
+              Documents
             </NavLink>
           </li>
 

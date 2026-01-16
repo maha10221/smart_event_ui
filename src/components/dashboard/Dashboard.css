@@ -3,9 +3,18 @@
 ========================= */
 
 /* REMOVE DASHBOARD SCROLL */
-.dashboard,
-.page-content {
-  overflow: hidden;
+/* SCROLLBAR */
+.employee-table tbody::-webkit-scrollbar {
+  width: 6px;
+}
+
+.employee-table tbody::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 10px;
+}
+
+.employee-table tbody::-webkit-scrollbar-thumb:hover {
+  background: #3d4052;
 }
 
 /* =========================
@@ -112,12 +121,12 @@
 }
 
 /* TABLE SCROLL AREA */
-.employee-table-wrapper {
-  max-height: 300px; /* 👈 shows ~5 rows */
+/* .employee-table-wrapper {
+  max-height: 310px; 
   overflow-y: auto;
   border-radius: 12px;
   background: rgb(86, 89, 94);
-}
+} */
 
 /* TABLE */
 .employee-table {
@@ -189,78 +198,112 @@
   text-decoration: underline;
 }
 /* =========================
-   EMPLOYEE TABLE (IMPROVED)
+   EMPLOYEE TABLE (FIXED)
 ========================= */
-/* Wrapper */
-.employee-table-wrapper {
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #ffffff;
-}
-
-/* Table */
 .employee-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
 }
 
-/* FIX HEADER */
+/* HEADER */
 .employee-table thead {
   display: table;
   width: 100%;
   table-layout: fixed;
 }
 
-/* SCROLL ONLY BODY */
+.employee-table thead th {
+  height: 52px;
+  background: #4b5661;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+}
+
+/* BODY */
 .employee-table tbody {
   display: block;
-  max-height: 320px;       /* 👈 controls visible rows */
+  max-height: calc(52px * 5); /* 👈 show 5 rows */
   overflow-y: auto;
   width: 100%;
 }
 
-/* BODY ROWS */
+/* ROWS */
 .employee-table tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
 }
 
-/* HEADER CELLS */
-.employee-table thead th {
-  background: #4b5661;
-    color: #ffffff;
-  font-weight: 600;
-  text-align: center;
-  padding: 12px;
-  border-bottom: 1px solid #d5dded;
-  cursor: pointer;
-}
-
-/* BODY CELLS */
+/* CELLS */
 .employee-table tbody td {
+  height: 52px;
   padding: 10px 12px;
   border-bottom: 1px solid #f1f5f9;
-  vertical-align: middle;
 }
 
-/* Row hover */
+/* HOVER */
 .employee-table tbody tr:hover {
   background: #f9fafb;
 }
 
-/* Scrollbar styling */
-.employee-table tbody::-webkit-scrollbar {
-  width: 6px;
+/* =========================
+   TABLE SPINNER (CSS ONLY)
+========================= */
+
+.employee-table-wrapper {
+  position: relative;
 }
 
-.employee-table tbody::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
-  border-radius: 10px;
+/* Spinner overlay */
+.employee-table-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
 }
 
-.employee-table tbody::-webkit-scrollbar-thumb:hover {
-  background: #a5b4fc;
+/* Spinner circle */
+.employee-table-wrapper::before {
+  content: "";
+  width: 36px;
+  height: 36px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  display: none;
+}
+
+/* Show spinner ONLY when tbody is empty */
+.employee-table tbody:empty ~ * ,
+.employee-table tbody:empty {
+  min-height: calc(52px * 5);
+}
+
+.employee-table tbody:empty::after {
+  display: block;
+}
+
+.employee-table tbody:empty::before {
+  display: block;
+}
+
+/* Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
