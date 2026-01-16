@@ -5,33 +5,58 @@
 .sidebar {
   width: 240px;
   height: 100vh;
-  background: #f9fafb;
+  background: #ffffff;
   border-right: 1px solid #e5e7eb;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 /* =========================
-   SIDEBAR TOP (BELOW HEADER)
+   TOP SECTION
 ========================= */
+
 .sidebar-top {
-  flex: 1;
-  padding: 18px 14px;
-  margin-top: 64px; /* header height */
-  overflow-y: auto;
+  padding: 16px 14px 10px;
 }
 
-/* TITLE */
+/* =========================
+   LOGO (FIXED POSITION & SIZE)
+========================= */
+
+.sidebar-logo {
+  height: 70px;                 /* 🔒 fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;  /* 🔥 left aligned */
+  margin-bottom: 12px;
+}
+
+.sidebar-logo img {
+  height: 100%;                 /* 🔒 cannot exceed container */
+  max-height: 70px;             /* 🔥 HARD LIMIT */
+  max-width: 200px;
+  object-fit: contain;
+}
+
+/* =========================
+   TITLE
+========================= */
+
 .sidebar-title {
   font-size: 15px;
   font-weight: 600;
-  margin-bottom: 18px;
-  padding-left: 8px;
   color: #111827;
+  margin-bottom: 16px;
+  padding-left: 6px;
+  line-height: 1.2;
 }
 
-/* MENU */
+/* =========================
+   MENU
+========================= */
+
 .sidebar-menu {
   list-style: none;
   padding: 0;
@@ -42,46 +67,47 @@
   margin-bottom: 6px;
 }
 
-/* MENU LINK */
+/* =========================
+   MENU LINK
+========================= */
+
 .menu-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+
   padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  text-decoration: none;
+  border-radius: 10px;
+
   color: #374151;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
+/* ICON */
+.menu-icon {
+  font-size: 16px;
+}
+
+/* HOVER */
 .menu-link:hover {
-  background: #e0e7ff;
-  color: #1e40af;
+  background: #f1f5f9;
 }
 
 /* ACTIVE */
 .menu-link.active {
   background: #2563eb;
   color: #ffffff;
-  font-weight: 500;
-}
-
-/* ICON */
-.menu-icon {
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  color: inherit;
 }
 
 /* =========================
-   SIDEBAR BOTTOM (MATCH FOOTER)
+   BOTTOM SECTION
 ========================= */
+
 .sidebar-bottom {
-  height: 48px;                 /* 🔥 SAME AS FOOTER */
-  display: flex;
-  align-items: center;          /* vertical center */
-  padding: 0 14px;
+  padding: 14px;
   border-top: 1px solid #e5e7eb;
-  background: #f9fafb;
 }

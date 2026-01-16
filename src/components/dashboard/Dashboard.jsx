@@ -45,6 +45,7 @@ const Dashboard = () => {
      LOAD EMPLOYEES
   ========================== */
   const loadEmployees = async () => {
+    setLoading(true);
     try {
       const res = await api.get(
         `/emp/page?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`
@@ -54,6 +55,8 @@ const Dashboard = () => {
       setTotalEmployees(res.data.totalItems || 0);
     } catch {
       setError("Failed to load employees");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -91,7 +94,6 @@ const Dashboard = () => {
         await api.post("/emp/add", emp);
         setSuccess("Employee added successfully");
       }
-
       setDrawerOpen(false);
       setEditEmp(null);
       loadEmployees();
@@ -107,13 +109,14 @@ const Dashboard = () => {
   ========================== */
   const deleteEmp = async (id) => {
     if (!window.confirm("Are you sure you want to delete this employee?")) return;
-
     try {
+      setLoading(true);
       await api.delete(`/emp/deleteById/${id}`);
       setSuccess("Employee deleted successfully");
       loadEmployees();
     } catch {
       setError("Delete failed");
+      setLoading(false);
     }
   };
 
@@ -129,8 +132,6 @@ const Dashboard = () => {
       {/* HEADER */}
       <div className="d-flex justify-content-between align-items-start mb-3">
         <h2>Admin Dashboard</h2>
-        
-
         <button
           className="btn btn-primary px-4"
           onClick={() => {
@@ -152,46 +153,50 @@ const Dashboard = () => {
 
       {/* TABLE */}
       <div className="employee-table-wrapper">
+        {/* 🔥 SPINNER */}
+        {loading && (
+          <div className="table-spinner">
+            <div className="spinner"></div>
+          </div>
+        )}
+
         <table className="table table-hover align-middle employee-table">
-          <thead className="table-light">
+          <thead>
             <tr>
-              <th className="sortable text-start" onClick={() => handleSort("name")}>
+              <th onClick={() => handleSort("name")} className="sortable text-start">
                 Name {renderSortIcon("name")}
               </th>
-              <th className="text-start">Email</th>
-              <th className="text-start">Department</th>
-              <th className="sortable text-center" onClick={() => handleSort("salary")}>
+              <th>Email</th>
+              <th>Department</th>
+              <th onClick={() => handleSort("salary")} className="sortable">
                 Salary {renderSortIcon("salary")}
               </th>
-              <th
-                className="sortable text-center"
-                onClick={() => handleSort("joiningDate")}
-              >
+              <th onClick={() => handleSort("joiningDate")} className="sortable">
                 Joining Date {renderSortIcon("joiningDate")}
               </th>
-              <th className="text-center">Gender</th>
-              <th className="text-center">Actions</th>
+              <th>Gender</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {employees.length === 0 ? (
+            {!loading && employees.length === 0 && (
               <tr>
-                <td colSpan="7" className="text-center text-muted py-4">
+                <td colSpan="7" className="text-center py-4 text-muted">
                   No Employees Found
                 </td>
               </tr>
-            ) : (
+            )}
+
+            {!loading &&
               employees.map((e) => (
                 <tr key={e.id}>
-                  <td className="text-start">{e.name}</td>
-                  <td className="text-start">{e.email}</td>
-                  <td className="text-start">{e.department}</td>
+                  <td>{e.name}</td>
+                  <td>{e.email}</td>
+                  <td>{e.department}</td>
                   <td className="text-center">{e.salary}</td>
                   <td className="text-center">{e.joiningDate}</td>
                   <td className="text-center">{e.gender}</td>
-
-                  {/* ✅ FIXED ACTION BUTTONS */}
                   <td className="text-center">
                     <button
                       className="btn btn-sm btn-outline-warning me-2"
@@ -202,7 +207,6 @@ const Dashboard = () => {
                     >
                       <i className="bi bi-pencil-square"></i>
                     </button>
-
                     <button
                       className="btn btn-sm btn-outline-danger"
                       onClick={() => deleteEmp(e.id)}
@@ -211,8 +215,7 @@ const Dashboard = () => {
                     </button>
                   </td>
                 </tr>
-              ))
-            )}
+              ))}
           </tbody>
         </table>
       </div>
@@ -222,15 +225,10 @@ const Dashboard = () => {
         <button disabled={page === 0} onClick={() => setPage(page - 1)}>
           Prev
         </button>
-
         <span>
           Page <b>{page + 1}</b> of <b>{totalPages}</b>
         </span>
-
-        <button
-          disabled={page === totalPages - 1}
-          onClick={() => setPage(page + 1)}
-        >
+        <button disabled={page === totalPages - 1} onClick={() => setPage(page + 1)}>
           Next
         </button>
       </div>
@@ -242,13 +240,11 @@ const Dashboard = () => {
             <h3 className="text-center mb-3">
               {editEmp ? "Update Employee" : "Add Employee"}
             </h3>
-
             <EmployeeForm
               onSubmit={addOrUpdate}
               editData={editEmp}
               loading={loading}
             />
-
             <div className="text-end mt-3">
               <button
                 className="btn btn-secondary"

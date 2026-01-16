@@ -6,8 +6,18 @@ const Sidebar = () => {
     <aside className="sidebar">
       {/* TOP */}
       <div className="sidebar-top">
+        {/* LOGO */}
+        <div className="sidebar-logo">
+          <img
+            src="https://iamdigitaltrust.com/wp-content/uploads/2023/05/share.png"
+            alt="Digital Trust"
+          />
+        </div>
+
+        {/* TITLE */}
         <div className="sidebar-title">Admin Panel</div>
 
+        {/* MENU */}
         <ul className="sidebar-menu">
           <li>
             <NavLink to="/home" end className="menu-link">
